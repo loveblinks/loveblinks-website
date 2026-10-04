@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create - LoveBlinks</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#111;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.box{background:#fff;color:#111;width:100%;max-width:360px;border-radius:24px;padding:24px}
+input,textarea{width:100%;padding:14px;border-radius:12px;border:1.5px solid #ffd1e6;background:#fff8fb;margin-top:8px}
+.btn{width:100%;background:#ff2d78;color:#fff;padding:14px;border-radius:100px;border:none;font-weight:700;margin-top:16px}
+.upload{border:2px dashed #ffb3ce;border-radius:16px;padding:18px;text-align:center;margin-top:8px;background:#fff8fb}
+</style>
+</head>
+<body>
+<div class="box">
+<h2 id="title">Create Card</h2>
+<p style="opacity:.6;font-size:13px;margin:8px 0 16px">Make it personal in 30 sec</p>
+<input id="name" placeholder="Unka naam likho - Ex: Anjali">
+<div class="upload" onclick="file.click()">📸 Photo upload karo<input type="file" id="file" hidden accept="image/*" onchange="loadFile(event)"><img id="prev" style="width:100%;border-radius:12px;margin-top:10px;display:none"></div>
+<textarea id="msg" rows="3" placeholder="Message likho..."></textarea>
+<button class="btn" onclick="nextStep()">Next → Preview</button>
+</div>
+<script>
+let photo="";
+function loadFile(e){let r=new FileReader();r.onload=()=>{photo=r.result;prev.src=photo;prev.style.display='block'};r.readAsDataURL(e.target.files[0])}
+function nextStep(){
+let n=document.getElementById('name').value||'Your Love';
+let m=document.getElementById('msg').value||'You mean everything to me 💖';
+localStorage.setItem('lb_name',n);localStorage.setItem('lb_msg',m);
+if(photo)localStorage.setItem('lb_photo',photo);
+let type=new URLSearchParams(location.search).get('type')||'puzzle';
+location.href='card.html?type='+type+'&name='+encodeURIComponent(n);
+}
+let tp=new URLSearchParams(location.search).get('type');
+document.getElementById('title').innerText='Create '+(tp||'puzzle')+' Card 💖';
+</script>
+</body>
+</html>

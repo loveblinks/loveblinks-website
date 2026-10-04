@@ -1,87 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>For You 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',system-ui}
-body{background:#FFF0F5;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
-.card{background:#fff;width:100%;max-width:380px;border-radius:28px;padding:24px;text-align:center;box-shadow:0 20px 60px rgba(255,45,120,.15)}
-.heart{width:130px;height:130px;background:#FF2D78;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;margin:20px auto;display:flex;align-items:center;justify-content:center;font-size:60px;animation:beat 1s infinite;cursor:pointer}
-@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
-.btn{background:#FF2D78;color:#fff;border:none;padding:14px;width:100%;border-radius:100px;font-weight:700;margin-top:14px;font-size:15px}
-.puzzle{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}
-.tile{aspect-ratio:1;background-size:400% 400%;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:.2s}
-.tile.sel{border-color:#FF2D78;transform:scale(.92)}
+body{background:#FFE8EE;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px;overflow-x:hidden}
+.card{background:#fff;width:100%;max-width:360px;border-radius:28px;padding:22px;text-align:center;box-shadow:0 20px 60px rgba(255,45,120,.2);position:relative;z-index:2}
+.top{color:#FF2D78;font-weight:800;font-size:11px;letter-spacing:1px}
+.puzzle{width:100%;aspect-ratio:1;background:#FFF0F5;border-radius:18px;margin-top:12px;position:relative;overflow:hidden}
+.tile{position:absolute;width:25%;height:25%;background-size:400% 400%;border-radius:10px;transition:all.25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 2px 8px rgba(0,0,0,.15);border:2px solid #fff}
+.btn{width:100%;background:#FF2D78;color:#fff;border:none;padding:14px;border-radius:100px;font-weight:700;margin-top:14px;cursor:pointer}
 .hidden{display:none}
-#photo{width:100%;border-radius:18px;aspect-ratio:1;object-fit:cover}
+.heart{width:110px;height:110px;background:#FF2D78;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;margin:16px auto;display:flex;align-items:center;justify-content:center;font-size:50px;animation:beat 1s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+/* SURPRISE SCREEN */
+#surprise{position:fixed;inset:0;background:linear-gradient(180deg,#FF2D78 0%,#FF6B9D 100%);display:flex;justify-content:center;align-items:center;padding:20px;z-index:20;overflow-y:auto}
+.letter{background:#fff;border-radius:24px;padding:24px;max-width:360px;width:100%;text-align:center;animation:pop.6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{0%{transform:scale(.7) translateY(30px);opacity:0}100%{transform:scale(1) translateY(0);opacity:1}}
+.photo{width:100%;border-radius:18px;aspect-ratio:1;object-fit:cover;margin:14px 0;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.loveFont{font-family:'Great Vibes',cursive;font-size:32px;color:#FF2D78}
+.float{position:absolute;animation:floatUp 3s linear forwards;pointer-events:none}
+@keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-100vh) scale(1.5);opacity:0}}
 </style>
 </head>
 <body>
 <div class="card" id="s1">
-<p id="g1" style="color:#FF2D78;font-weight:800;font-size:13px;letter-spacing:1px"></p>
-<h2 style="margin-top:8px;font-size:26px;line-height:1.1">Someone made<br>this just for you</h2>
-<p style="opacity:.5;font-size:13px;margin-top:8px">Tap the heart, there's a surprise inside</p>
-<div class="heart" onclick="go2()">💖</div>
-<button class="btn" onclick="go2()">Tap the heart 💜</button>
+<p class="top" id="g1"></p>
+<h2 style="font-size:24px;margin-top:6px">Someone made<br>this just for you</h2>
+<p style="font-size:12px;opacity:.5;margin-top:6px">Slide to reveal their heart</p>
+<div class="heart">💖</div>
+<button class="btn" onclick="go2()">Open 💜</button>
 </div>
 
 <div class="card hidden" id="s2">
-<p style="font-weight:700">Your Surprise ✨</p>
-<img id="photo">
-<p id="msg" style="margin-top:12px;font-size:14px;line-height:1.4"></p>
-<button class="btn" onclick="go3()">Solve Puzzle to Reveal 💌</button>
+<p class="top" id="g2"></p>
+<h2 style="font-size:20px">Solve with Love 💜</h2>
+<p style="font-size:11px;opacity:.5">Slide tiles near empty space</p>
+<div class="puzzle" id="pz"></div>
+<div style="height:6px;background:#FFE0EB;border-radius:10px;margin-top:12px"><div id="bar" style="height:100%;width:10%;background:#FF2D78;transition:width.3s"></div></div>
+<p id="pct" style="font-size:11px;opacity:.5;margin-top:6px">0% solved</p>
 </div>
 
-<div class="card hidden" id="s3">
-<p id="g2" style="color:#FF2D78;font-weight:800"></p>
-<h3 style="margin:8px 0">Solve with Love 💜</h3>
-<p style="font-size:12px;opacity:.5">Tap 2 tiles to swap</p>
-<div class="puzzle" id="pz"></div>
-<p id="win" class="hidden" style="margin-top:16px;font-weight:700;color:#FF2D78"></p>
+<div id="surprise" class="hidden">
+<div class="letter">
+<p class="top">YOU DID IT 😭💖</p>
+<div class="loveFont" id="loveName"></div>
+<img id="finalPhoto" class="photo">
+<p id="finalMsg" style="font-size:14px;line-height:1.6;margin-top:8px"></p>
+<div style="background:#FFF0F5;border-radius:14px;padding:12px;margin-top:14px;font-size:12px">Made with 💖 on LoveBlinks<br><b id="fromName"></b> loves you more than words</div>
+<button class="btn" onclick="location.href='https://loveblinks.github.io/loveblinks-website/'">Create One For Them →</button>
+<button style="background:none;border:none;font-size:12px;opacity:.5;margin-top:10px" onclick="share()">Share this surprise 🔗</button>
+</div>
 </div>
 
 <script>
-const params=new URLSearchParams(location.search);
-const name=params.get('name')||localStorage.getItem('lb_name')||'Butkiee';
-const photo=localStorage.getItem('lb_photo')||'https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=500';
-const msg=localStorage.getItem('lb_msg')||'You mean everything to me 💖';
-
+const name=new URLSearchParams(location.search).get('name')||localStorage.getItem('lb_name')||'Aditi';
+const photo=localStorage.getItem('lb_photo')||'https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=600';
+const msg=localStorage.getItem('lb_msg')||'You are my favorite person in this whole world. Every moment with you is magical 💖';
 document.getElementById('g1').innerText=`HEY ${name.toUpperCase()} 😘`;
-document.getElementById('g2').innerText=`${name} 😘's Puzzle`;
-document.getElementById('photo').src=photo;
-document.getElementById('msg').innerText=msg;
+document.getElementById('g2').innerText=`${name.toUpperCase()}'S PUZZLE`;
+document.getElementById('loveName').innerText=`For My ${name}`;
+document.getElementById('finalPhoto').src=photo;
+document.getElementById('finalMsg').innerText=msg;
+document.getElementById('fromName').innerText=name;
 
-function go2(){s1.classList.add('hidden');s2.classList.remove('hidden')}
-function go3(){s2.classList.add('hidden');s3.classList.remove('hidden');init()}
-let tiles=[],sel=null;
+function go2(){s1.classList.add('hidden');s2.classList.remove('hidden');init()}
+let pos=[],empty=15;
 function init(){
-  tiles=[...Array(16).keys()].sort(()=>Math.random()-0.5);
+  pos=[...Array(15).keys(),15];
+  for(let k=0;k<120;k++){let n=getN(empty); let r=n[Math.floor(Math.random()*n.length)]; [pos[empty],pos[r]]=[pos[r],pos[empty]]; empty=r}
+  empty=pos.indexOf(15); render();
+}
+function getN(i){let r=[]; if(i%4>0) r.push(i-1); if(i%4<3) r.push(i+1); if(i>=4) r.push(i-4); if(i<12) r.push(i+4); return r;}
+function render(){
   const pz=document.getElementById('pz'); pz.innerHTML='';
-  tiles.forEach((pos,i)=>{
+  pos.forEach((v,i)=>{
+    if(v===15) return;
     let d=document.createElement('div'); d.className='tile';
+    d.style.left=(i%4)*25+'%'; d.style.top=Math.floor(i/4)*25+'%';
     d.style.backgroundImage=`url(${photo})`;
-    d.style.backgroundPosition=`${(pos%4)*33.333}% ${Math.floor(pos/4)*33.333}%`;
-    d.onclick=()=>{
-      if(sel===null){sel=i; d.classList.add('sel')}
-      else{
-        let t=tiles[sel]; tiles[sel]=tiles[i]; tiles[i]=t;
-        document.querySelectorAll('.tile').forEach((el,idx)=>{
-          el.style.backgroundPosition=`${(tiles[idx]%4)*33.333}% ${Math.floor(tiles[idx]/4)*33.333}%`;
-          el.classList.remove('sel');
-        });
-        sel=null;
-        if(tiles.every((v,j)=>v==j)){
-          document.getElementById('win').classList.remove('hidden');
-          document.getElementById('win').innerText=`You did it ${name} 💖 I love you so much!`;
-          setTimeout(()=>alert(`Yay ${name} 💖 You solved it!`),300);
-        }
-      }
-    };
+    d.style.backgroundPosition=`${(v%4)*33.333}% ${Math.floor(v/4)*33.333}%`;
+    d.onclick=()=>{ if(getN(empty).includes(i)) move(i); };
+    // swipe
+    let sx=0; d.ontouchstart=e=>{sx=e.touches[0].clientX};
+    d.ontouchend=e=>{ let dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>30 && getN(empty).includes(i)) move(i); };
     pz.appendChild(d);
   });
+  let solvedCount=pos.filter((v,j)=>v===j).length;
+  document.getElementById('bar').style.width=(solvedCount/16*100)+'%';
+  document.getElementById('pct').innerText=Math.round(solvedCount/16*100)+'% solved • Keep going 💜';
+  if(pos.every((v,j)=>v===j)) setTimeout(win,300);
 }
+function move(i){ [pos[empty],pos[i]]=[pos[i],pos[empty]]; empty=i; if(navigator.vibrate) navigator.vibrate(15); render(); }
+function win(){
+  document.getElementById('surprise').classList.remove('hidden');
+  s2.classList.add('hidden');
+  // hearts blast
+  for(let i=0;i<30;i++) setTimeout(()=>{
+    let h=document.createElement('div'); h.className='float'; h.innerText=['💖','💜','💕','😘'][Math.floor(Math.random()*4)];
+    h.style.left=Math.random()*100+'vw'; h.style.bottom='0'; h.style.fontSize=(20+Math.random()*20)+'px';
+    document.body.appendChild(h); setTimeout(()=>h.remove(),3000);
+  }, i*80);
+  // music feel - play beep via WebAudio
+  try{let a=new AudioContext(); let o=a.createOscillator(); o.frequency.value=600; o.connect(a.destination); o.start(); o.stop(a.currentTime+.2);}catch(e){}
+}
+function share(){let u=location.href; navigator.clipboard.writeText(u); alert('Link copied! Send it 💖')}
 </script>
 </body>
 </html>

@@ -1,112 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>For You 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',system-ui}
-body{background:#FFE8EE;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px;overflow-x:hidden}
-.card{background:#fff;width:100%;max-width:360px;border-radius:28px;padding:22px;text-align:center;box-shadow:0 20px 60px rgba(255,45,120,.2);position:relative;z-index:2}
-.top{color:#FF2D78;font-weight:800;font-size:11px;letter-spacing:1px}
-.puzzle{width:100%;aspect-ratio:1;background:#FFF0F5;border-radius:18px;margin-top:12px;position:relative;overflow:hidden}
-.tile{position:absolute;width:25%;height:25%;background-size:400% 400%;border-radius:10px;transition:all.25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 2px 8px rgba(0,0,0,.15);border:2px solid #fff}
-.btn{width:100%;background:#FF2D78;color:#fff;border:none;padding:14px;border-radius:100px;font-weight:700;margin-top:14px;cursor:pointer}
-.hidden{display:none}
-.heart{width:110px;height:110px;background:#FF2D78;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;margin:16px auto;display:flex;align-items:center;justify-content:center;font-size:50px;animation:beat 1s infinite}
-@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
-/* SURPRISE SCREEN */
-#surprise{position:fixed;inset:0;background:linear-gradient(180deg,#FF2D78 0%,#FF6B9D 100%);display:flex;justify-content:center;align-items:center;padding:20px;z-index:20;overflow-y:auto}
-.letter{background:#fff;border-radius:24px;padding:24px;max-width:360px;width:100%;text-align:center;animation:pop.6s cubic-bezier(.34,1.56,.64,1)}
-@keyframes pop{0%{transform:scale(.7) translateY(30px);opacity:0}100%{transform:scale(1) translateY(0);opacity:1}}
-.photo{width:100%;border-radius:18px;aspect-ratio:1;object-fit:cover;margin:14px 0;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-.loveFont{font-family:'Great Vibes',cursive;font-size:32px;color:#FF2D78}
-.float{position:absolute;animation:floatUp 3s linear forwards;pointer-events:none}
-@keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-100vh) scale(1.5);opacity:0}}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#FFE8EE;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:14px}
+.card{background:#fff;width:100%;max-width:360px;border-radius:28px;padding:20px;text-align:center;box-shadow:0 20px 60px rgba(255,45,120,.25)}
+.top{color:#FF2D78;font-weight:800;font-size:11px;letter-spacing:1.2px}
+h2{font-size:21px;line-height:1.2;margin-top:6px}
+.sub{font-size:11px;opacity:.5;margin-top:4px}
+.puzzle{width:100%;aspect-ratio:1;background:#FFF0F5;border-radius:18px;margin-top:14px;position:relative;overflow:hidden;border:1px solid #FFE0EB}
+.tile{position:absolute;width:33.333%;height:33.333%;background-size:300% 300%;transition:all.22s cubic-bezier(.34,1.56,.64,1);border:1.5px solid #fff;cursor:grab;touch-action:none}
+.tile:active{scale:1.06;z-index:10;box-shadow:0 10px 25px rgba(0,0,0,.3)}
+.empty{opacity:0;pointer-events:none}
+.barWrap{height:6px;background:#FFE0EB;border-radius:10px;overflow:hidden;margin-top:12px}
+.bar{height:100%;width:0%;background:linear-gradient(90deg,#FF2D78,#FF8FAB);transition:width.3s}
+#surprise{position:fixed;inset:0;background:#FF2D78;display:flex;justify-content:center;align-items:center;padding:18px;z-index:99;overflow-y:auto}
+.letter{background:#fff;border-radius:24px;padding:22px;width:100%;max-width:360px;text-align:center;animation:pop.6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{0%{transform:scale(.6) translateY(40px);opacity:0}100%{transform:scale(1) translateY(0);opacity:1}}
+.photo{width:100%;border-radius:18px;aspect-ratio:1;object-fit:cover;margin:14px 0;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.love{font-family:'Great Vibes',cursive;font-size:34px;color:#FF2D78;line-height:1}
+.btn{width:100%;background:#FF2D78;color:#fff;border:none;padding:14px;border-radius:100px;font-weight:800;margin-top:14px;cursor:pointer}
+.hidden{display:none!important}
+.heartFloat{position:fixed;bottom:0;pointer-events:none;animation:up 3s linear forwards;z-index:100}
+@keyframes up{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-110vh) scale(1.6);opacity:0}}
 </style>
 </head>
 <body>
+
 <div class="card" id="s1">
-<p class="top" id="g1"></p>
-<h2 style="font-size:24px;margin-top:6px">Someone made<br>this just for you</h2>
-<p style="font-size:12px;opacity:.5;margin-top:6px">Slide to reveal their heart</p>
-<div class="heart">💖</div>
-<button class="btn" onclick="go2()">Open 💜</button>
+<p class="top" id="t1">HEY ADITIYA 😘</p>
+<h2>Someone made<br>this just for you</h2>
+<p class="sub">A piece of my heart is hidden inside</p>
+<div style="width:110px;height:110px;background:#FF2D78;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;margin:18px auto;display:flex;align-items:center;justify-content:center;font-size:52px;animation:beat 1s infinite">💖</div>
+<button class="btn" onclick="start()">Open Your Surprise 💜</button>
 </div>
 
 <div class="card hidden" id="s2">
-<p class="top" id="g2"></p>
-<h2 style="font-size:20px">Solve with Love 💜</h2>
-<p style="font-size:11px;opacity:.5">Slide tiles near empty space</p>
+<p class="top" id="t2">ADITIYA'S PUZZLE 😘</p>
+<h2>Solve with Love 💜</h2>
+<p class="sub">Slide tiles to make photo</p>
 <div class="puzzle" id="pz"></div>
-<div style="height:6px;background:#FFE0EB;border-radius:10px;margin-top:12px"><div id="bar" style="height:100%;width:10%;background:#FF2D78;transition:width.3s"></div></div>
-<p id="pct" style="font-size:11px;opacity:.5;margin-top:6px">0% solved</p>
+<div class="barWrap"><div class="bar" id="bar"></div></div>
+<p id="pct" style="font-size:11px;opacity:.6;margin-top:6px">0% • Keep sliding</p>
 </div>
 
 <div id="surprise" class="hidden">
 <div class="letter">
 <p class="top">YOU DID IT 😭💖</p>
-<div class="loveFont" id="loveName"></div>
+<div class="love" id="loveName">For My Aditya</div>
 <img id="finalPhoto" class="photo">
-<p id="finalMsg" style="font-size:14px;line-height:1.6;margin-top:8px"></p>
-<div style="background:#FFF0F5;border-radius:14px;padding:12px;margin-top:14px;font-size:12px">Made with 💖 on LoveBlinks<br><b id="fromName"></b> loves you more than words</div>
-<button class="btn" onclick="location.href='https://loveblinks.github.io/loveblinks-website/'">Create One For Them →</button>
-<button style="background:none;border:none;font-size:12px;opacity:.5;margin-top:10px" onclick="share()">Share this surprise 🔗</button>
+<p id="finalMsg" style="font-size:14px;line-height:1.6">You are my everything 💖</p>
+<div style="background:#FFF0F5;border-radius:14px;padding:12px;margin-top:14px;font-size:12px">Made with 💖 on LoveBlinks<br><b id="from">Aditya loves you more than words</b></div>
+<button class="btn" onclick="location.href='/loveblinks-website/'">Create One For Them →</button>
+<button style="background:none;border:none;font-size:12px;opacity:.5;margin-top:10px" onclick="navigator.clipboard.writeText(location.href);alert('Link copied 💖')">Share this surprise 🔗</button>
 </div>
 </div>
 
 <script>
-const name=new URLSearchParams(location.search).get('name')||localStorage.getItem('lb_name')||'Aditi';
-const photo=localStorage.getItem('lb_photo')||'https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=600';
-const msg=localStorage.getItem('lb_msg')||'You are my favorite person in this whole world. Every moment with you is magical 💖';
-document.getElementById('g1').innerText=`HEY ${name.toUpperCase()} 😘`;
-document.getElementById('g2').innerText=`${name.toUpperCase()}'S PUZZLE`;
+const params=new URLSearchParams(location.search);
+const name=params.get('name')||localStorage.getItem('lb_name')||'Aditya';
+const photo=localStorage.getItem('lb_photo')||'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&q=80';
+const msg=localStorage.getItem('lb_msg')||'Hshshs\nYou mean the world to me. Every second with you is magical 💖';
+
+document.getElementById('t1').innerText=`HEY ${name.toUpperCase()} 😘`;
+document.getElementById('t2').innerText=`${name.toUpperCase()}'S PUZZLE 😘`;
 document.getElementById('loveName').innerText=`For My ${name}`;
 document.getElementById('finalPhoto').src=photo;
 document.getElementById('finalMsg').innerText=msg;
-document.getElementById('fromName').innerText=name;
+document.getElementById('from').innerText=`${name} loves you more than words`;
 
-function go2(){s1.classList.add('hidden');s2.classList.remove('hidden');init()}
-let pos=[],empty=15;
+function start(){s1.classList.add('hidden');s2.classList.remove('hidden');init()}
+let pos=[],empty=8;
 function init(){
-  pos=[...Array(15).keys(),15];
-  for(let k=0;k<120;k++){let n=getN(empty); let r=n[Math.floor(Math.random()*n.length)]; [pos[empty],pos[r]]=[pos[r],pos[empty]]; empty=r}
-  empty=pos.indexOf(15); render();
+  pos=[0,1,2,3,4,5,6,7,8];
+  for(let k=0;k<150;k++){let n=neighbors(empty);let r=n[Math.floor(Math.random()*n.length)];[pos[empty],pos[r]]=[pos[r],pos[empty]];empty=r}
+  empty=pos.indexOf(8);
+  render();
 }
-function getN(i){let r=[]; if(i%4>0) r.push(i-1); if(i%4<3) r.push(i+1); if(i>=4) r.push(i-4); if(i<12) r.push(i+4); return r;}
+function neighbors(i){let r=[];if(i%3>0)r.push(i-1);if(i%3<2)r.push(i+1);if(i>=3)r.push(i-3);if(i<6)r.push(i+3);return r;}
 function render(){
-  const pz=document.getElementById('pz'); pz.innerHTML='';
+  const pz=document.getElementById('pz');pz.innerHTML='';
   pos.forEach((v,i)=>{
-    if(v===15) return;
-    let d=document.createElement('div'); d.className='tile';
-    d.style.left=(i%4)*25+'%'; d.style.top=Math.floor(i/4)*25+'%';
+    if(v===8){return;}
+    let d=document.createElement('div');d.className='tile';
+    d.style.left=(i%3)*33.333+'%';d.style.top=Math.floor(i/3)*33.333+'%';
     d.style.backgroundImage=`url(${photo})`;
-    d.style.backgroundPosition=`${(v%4)*33.333}% ${Math.floor(v/4)*33.333}%`;
-    d.onclick=()=>{ if(getN(empty).includes(i)) move(i); };
-    // swipe
-    let sx=0; d.ontouchstart=e=>{sx=e.touches[0].clientX};
-    d.ontouchend=e=>{ let dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>30 && getN(empty).includes(i)) move(i); };
+    d.style.backgroundPosition=`${(v%3)*50}% ${Math.floor(v/3)*50}%`;
+    let sx=0,sy=0;
+    d.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+    d.addEventListener('touchend',e=>{
+      let dx=e.changedTouches[0].clientX-sx;let dy=e.changedTouches[0].clientY-sy;
+      if(Math.abs(dx)<10&&Math.abs(dy)<10){if(neighbors(empty).includes(i))move(i);return;}
+      let dir=null;if(Math.abs(dx)>Math.abs(dy)){if(i%3>0&&dx<-20)dir=i-1;if(i%3<2&&dx>20)dir=i+1;}else{if(i>=3&&dy<-20)dir=i-3;if(i<6&&dy>20)dir=i+3;}
+      if(dir!==null&&dir===empty)move(i);
+      else if(neighbors(empty).includes(i))move(i);
+    });
+    d.addEventListener('click',()=>{if(neighbors(empty).includes(i))move(i);});
     pz.appendChild(d);
   });
-  let solvedCount=pos.filter((v,j)=>v===j).length;
-  document.getElementById('bar').style.width=(solvedCount/16*100)+'%';
-  document.getElementById('pct').innerText=Math.round(solvedCount/16*100)+'% solved • Keep going 💜';
-  if(pos.every((v,j)=>v===j)) setTimeout(win,300);
+  let ok=pos.filter((v,j)=>v===j).length;
+  document.getElementById('bar').style.width=(ok/9*100)+'%';
+  document.getElementById('pct').innerText=Math.round(ok/9*100)+'% solved • Slide to complete 💜';
+  if(ok===9)setTimeout(win,350);
 }
-function move(i){ [pos[empty],pos[i]]=[pos[i],pos[empty]]; empty=i; if(navigator.vibrate) navigator.vibrate(15); render(); }
+function move(i){[pos[empty],pos[i]]=[pos[i],pos[empty]];empty=i;if(navigator.vibrate)navigator.vibrate(15);render();}
 function win(){
   document.getElementById('surprise').classList.remove('hidden');
-  s2.classList.add('hidden');
-  // hearts blast
-  for(let i=0;i<30;i++) setTimeout(()=>{
-    let h=document.createElement('div'); h.className='float'; h.innerText=['💖','💜','💕','😘'][Math.floor(Math.random()*4)];
-    h.style.left=Math.random()*100+'vw'; h.style.bottom='0'; h.style.fontSize=(20+Math.random()*20)+'px';
-    document.body.appendChild(h); setTimeout(()=>h.remove(),3000);
-  }, i*80);
-  // music feel - play beep via WebAudio
-  try{let a=new AudioContext(); let o=a.createOscillator(); o.frequency.value=600; o.connect(a.destination); o.start(); o.stop(a.currentTime+.2);}catch(e){}
+  for(let k=0;k<35;k++)setTimeout(()=>{
+    let h=document.createElement('div');h.className='heartFloat';h.innerText=['💖','💕','💜','😘','❤️'][Math.floor(Math.random()*5)];
+    h.style.left=Math.random()*100+'vw';h.style.fontSize=(18+Math.random()*22)+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),3000);
+  },k*70);
 }
-function share(){let u=location.href; navigator.clipboard.writeText(u); alert('Link copied! Send it 💖')}
 </script>
 </body>
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',system-ui}
+body{background:#FFF0F5;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px}
+.card{background:#fff;width:100%;max-width:380px;border-radius:28px;padding:24px;text-align:center;box-shadow:0 20px 60px rgba(255,45,120,.15)}
+.heart{width:130px;height:130px;background:#FF2D78;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;margin:20px auto;display:flex;align-items:center;justify-content:center;font-size:60px;animation:beat 1s infinite;cursor:pointer}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.btn{background:#FF2D78;color:#fff;border:none;padding:14px;width:100%;border-radius:100px;font-weight:700;margin-top:14px;font-size:15px}
+.puzzle{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px}
+.tile{aspect-ratio:1;background-size:400% 400%;border-radius:10px;cursor:pointer;border:2px solid transparent;transition:.2s}
+.tile.sel{border-color:#FF2D78;transform:scale(.92)}
+.hidden{display:none}
+#photo{width:100%;border-radius:18px;aspect-ratio:1;object-fit:cover}
+</style>
+</head>
+<body>
+<div class="card" id="s1">
+<p id="g1" style="color:#FF2D78;font-weight:800;font-size:13px;letter-spacing:1px"></p>
+<h2 style="margin-top:8px;font-size:26px;line-height:1.1">Someone made<br>this just for you</h2>
+<p style="opacity:.5;font-size:13px;margin-top:8px">Tap the heart, there's a surprise inside</p>
+<div class="heart" onclick="go2()">💖</div>
+<button class="btn" onclick="go2()">Tap the heart 💜</button>
+</div>
+
+<div class="card hidden" id="s2">
+<p style="font-weight:700">Your Surprise ✨</p>
+<img id="photo">
+<p id="msg" style="margin-top:12px;font-size:14px;line-height:1.4"></p>
+<button class="btn" onclick="go3()">Solve Puzzle to Reveal 💌</button>
+</div>
+
+<div class="card hidden" id="s3">
+<p id="g2" style="color:#FF2D78;font-weight:800"></p>
+<h3 style="margin:8px 0">Solve with Love 💜</h3>
+<p style="font-size:12px;opacity:.5">Tap 2 tiles to swap</p>
+<div class="puzzle" id="pz"></div>
+<p id="win" class="hidden" style="margin-top:16px;font-weight:700;color:#FF2D78"></p>
+</div>
+
+<script>
+const params=new URLSearchParams(location.search);
+const name=params.get('name')||localStorage.getItem('lb_name')||'Butkiee';
+const photo=localStorage.getItem('lb_photo')||'https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=500';
+const msg=localStorage.getItem('lb_msg')||'You mean everything to me 💖';
+
+document.getElementById('g1').innerText=`HEY ${name.toUpperCase()} 😘`;
+document.getElementById('g2').innerText=`${name} 😘's Puzzle`;
+document.getElementById('photo').src=photo;
+document.getElementById('msg').innerText=msg;
+
+function go2(){s1.classList.add('hidden');s2.classList.remove('hidden')}
+function go3(){s2.classList.add('hidden');s3.classList.remove('hidden');init()}
+let tiles=[],sel=null;
+function init(){
+  tiles=[...Array(16).keys()].sort(()=>Math.random()-0.5);
+  const pz=document.getElementById('pz'); pz.innerHTML='';
+  tiles.forEach((pos,i)=>{
+    let d=document.createElement('div'); d.className='tile';
+    d.style.backgroundImage=`url(${photo})`;
+    d.style.backgroundPosition=`${(pos%4)*33.333}% ${Math.floor(pos/4)*33.333}%`;
+    d.onclick=()=>{
+      if(sel===null){sel=i; d.classList.add('sel')}
+      else{
+        let t=tiles[sel]; tiles[sel]=tiles[i]; tiles[i]=t;
+        document.querySelectorAll('.tile').forEach((el,idx)=>{
+          el.style.backgroundPosition=`${(tiles[idx]%4)*33.333}% ${Math.floor(tiles[idx]/4)*33.333}%`;
+          el.classList.remove('sel');
+        });
+        sel=null;
+        if(tiles.every((v,j)=>v==j)){
+          document.getElementById('win').classList.remove('hidden');
+          document.getElementById('win').innerText=`You did it ${name} 💖 I love you so much!`;
+          setTimeout(()=>alert(`Yay ${name} 💖 You solved it!`),300);
+        }
+      }
+    };
+    pz.appendChild(d);
+  });
+}
+</script>
+</body>
+</html>

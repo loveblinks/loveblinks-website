@@ -1,113 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800&family=Great+Vibes&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif}
-body{background:#FFE8EE;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:14px}
-.card{background:#fff;width:100%;max-width:360px;border-radius:28px;padding:20px;text-align:center;box-shadow:0 20px 60px rgba(255,45,120,.25)}
-.top{color:#FF2D78;font-weight:800;font-size:11px;letter-spacing:1px}
-.puzzle{width:100%;aspect-ratio:1;background:#FFF0F5;border-radius:18px;margin-top:14px;position:relative;overflow:hidden}
-.tile{position:absolute;width:33.333%;height:33.333%;background-size:300% 300%;border:1.5px solid #fff;transition:all.22s cubic-bezier(.34,1.56,.64,1)}
-#surprise{position:fixed;inset:0;background:#FF2D78;z-index:999;display:flex;justify-content:center;align-items:center;padding:16px;overflow-y:auto}
-.letter{background:#fff;border-radius:24px;padding:22px;width:100%;max-width:360px;text-align:center;animation:pop.6s cubic-bezier(.34,1.56,.64,1)}
-@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
-.photo{width:100%;border-radius:18px;aspect-ratio:1;object-fit:cover;margin:14px 0}
-.love{font-family:'Great Vibes',cursive;font-size:34px;color:#FF2D78}
-.btn{width:100%;background:#FF2D78;color:#fff;border:none;padding:14px;border-radius:100px;font-weight:800;margin-top:12px}
-.hidden{display:none!important}
-.heart{position:fixed;bottom:-20px;animation:up 3s linear forwards;pointer-events:none;z-index:1000;font-size:24px}
-@keyframes up{to{transform:translateY(-110vh) scale(1.5);opacity:0}}
-.barWrap{height:6px;background:#FFE0EB;border-radius:10px;overflow:hidden;margin-top:12px}
-.bar{height:100%;width:0%;background:linear-gradient(90deg,#FF2D78,#FF8FAB);transition:.3s}
-</style>
-</head>
-<body>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>For You 💖</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@800&family=Great+Vibes&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif}body{background:#FFE8EE;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:12px}.card{width:100%;max-width:360px;background:#fff;border-radius:24px;padding:18px;text-align:center;box-shadow:0 10px 40px rgba(255,45,120,.2)}#surprise{position:fixed;inset:0;background:#FF2D78;display:flex;justify-content:center;align-items:center;padding:14px;z-index:999;overflow-y:auto}.letter{background:#fff;border-radius:24px;padding:20px;width:100%;max-width:360px;text-align:center}.puzzle{width:100%;aspect-ratio:1;background:#FFF0F5;border-radius:16px;margin-top:12px;position:relative;overflow:hidden}.tile{position:absolute;width:33.33%;height:33.33%;background-size:300% 300%;border:1.5px solid #fff;transition:all.25s cubic-bezier(.34,1.56,.64,1);cursor:pointer}.tile:active{scale:1.06;z-index:5}.photo{width:100%;border-radius:16px;aspect-ratio:1;object-fit:cover;margin:12px 0}.love{font-family:'Great Vibes',cursive;font-size:36px;color:#FF2D78}.btn{width:100%;background:#FF2D78;color:#fff;border:none;padding:14px;border-radius:100px;font-weight:800;margin-top:10px;cursor:pointer}.btn2{background:#FFF0F5;color:#FF2D78;border:1px solid #FFE0EB}.hidden{display:none!important}.heart{position:fixed;bottom:0;animation:up 3s linear forwards;z-index:1000;font-size:26px}.barWrap{height:6px;background:#FFE0EB;border-radius:10px;margin-top:10px;overflow:hidden}.bar{height:100%;width:0%;background:linear-gradient(90deg,#FF2D78,#FF8FAB);transition:.3s}@keyframes up{to{transform:translateY(-110vh);opacity:0}}</style></head><body>
 
-<div class="card" id="s1">
-<p class="top" id="t1">HEY ADITIYA 😘</p>
-<h2>Someone made<br>this just for you</h2>
-<p style="font-size:11px;opacity:.5;margin-top:4px">A piece of my heart is hidden inside</p>
-<div style="width:110px;height:110px;background:#FF2D78;border-radius:50%;margin:18px auto;display:flex;align-items:center;justify-content:center;font-size:52px">💖</div>
-<button class="btn" onclick="go()">Open Your Surprise 💜</button>
+<div id="s1" class="card">
+<p style="color:#FF2D78;font-weight:800;font-size:11px" id="t1">HEY THERE 😘</p>
+<h2>Someone made this<br>just for you</h2>
+<div style="font-size:60px;margin:14px 0">💖</div>
+<button class="btn" onclick="s1.classList.add('hidden');s2.classList.remove('hidden');init()">Open Your Surprise 💜</button>
 </div>
 
-<div class="card hidden" id="s2">
-<p class="top" id="t2">ADITIYA'S PUZZLE 😘</p>
-<h2>Solve with Love 💜</h2>
-<p style="font-size:11px;opacity:.5">Slide tiles to make photo</p>
+<div id="s2" class="card hidden">
+<p style="color:#FF2D78;font-weight:800;font-size:11px" id="t2">PUZZLE</p>
+<h2 style="font-size:18px">Solve with Love 💜</h2>
+<p style="font-size:11px;opacity:.6;margin-top:4px">Slide to complete photo • Moderate</p>
 <div class="puzzle" id="pz"></div>
 <div class="barWrap"><div class="bar" id="bar"></div></div>
-<p id="pct" style="font-size:11px;opacity:.6;margin-top:6px">0% solved</p>
+<p id="pct" style="font-size:11px;opacity:.6;margin-top:6px"></p>
+<button class="btn btn2" id="hintBtn" onclick="doHint()">💡 Hint (2 left)</button>
+<button class="btn hidden" id="skipBtn" onclick="win()">Skip → See Letter 💌</button>
 </div>
 
-<div id="surprise" class="hidden">
-<div class="letter">
-<p class="top">YOU DID IT 😭💖</p>
-<div class="love" id="loveName">For My Aditya</div>
+<div id="surprise" class="hidden"><div class="letter">
+<p style="color:#FF2D78;font-weight:800;font-size:11px">YOU DID IT 😭💖</p>
+<div class="love" id="loveName">For My Love</div>
 <img id="finalPhoto" class="photo">
-<p id="finalMsg" style="font-size:14px;line-height:1.6">You are my everything 💖</p>
-<div style="background:#FFF0F5;border-radius:14px;padding:12px;margin-top:14px;font-size:12px">Made with 💖 on LoveBlinks<br><b id="fromName">Aditya loves you more than words</b></div>
+<p id="finalMsg" style="font-size:14px;line-height:1.5">I love you</p>
+<div style="background:#FFF0F5;border-radius:12px;padding:10px;margin-top:10px;font-size:11px">Made with 💖 on LoveBlinks<br><b id="fromName"></b></div>
 <button class="btn" onclick="location.href='/loveblinks-website/'">Create One For Them →</button>
-<button style="background:none;border:none;font-size:12px;opacity:.5;margin-top:10px;display:block;width:100%" onclick="navigator.clipboard.writeText(location.href);alert('Link copied 💖')">Share this surprise 🔗</button>
-</div>
-</div>
+</div></div>
 
 <script>
 const qs=new URLSearchParams(location.search);
-const name=qs.get('name')||localStorage.getItem('lb_name')||'Aditya';
-const photo=localStorage.getItem('lb_photo')||'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&q=80';
-const msg=localStorage.getItem('lb_msg')||'I love you so much 💖';
-
+let name=qs.get('name')||localStorage.getItem('lb_name')||'Aditya';
+let photo=localStorage.getItem('lb_photo')||'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600';
+let msg=localStorage.getItem('lb_msg')||'I love you so much 💖';
 document.getElementById('t1').innerText=`HEY ${name.toUpperCase()} 😘`;
-document.getElementById('t2').innerText=`${name.toUpperCase()}'S PUZZLE 😘`;
-document.getElementById('loveName').innerText=`For My ${name}`;
+document.getElementById('t2').innerText=name.toUpperCase()+"'S PUZZLE 😘";
+document.getElementById('loveName').innerText='For My '+name;
 document.getElementById('finalPhoto').src=photo;
 document.getElementById('finalMsg').innerText=msg;
-document.getElementById('fromName').innerText=`${name} loves you more than words`;
-
-function go(){document.getElementById('s1').classList.add('hidden');document.getElementById('s2').classList.remove('hidden');init()}
-let pos=[],empty=8;
+document.getElementById('fromName').innerText=name+' loves you more than words';
+let pos=[],empty=8,moves=0,hints=2;
 function init(){
  pos=[0,1,2,3,4,5,6,7,8];
- for(let k=0;k<200;k++){let nb=neighbors(empty);let r=nb[Math.floor(Math.random()*nb.length)];[pos[empty],pos[r]]=[pos[r],pos[empty]];empty=r}
+ // MODERATE - 35 moves (best balance)
+ for(let k=0;k<35;k++){let nb=neighbors(empty);let r=nb[Math.floor(Math.random()*nb.length)];[pos[empty],pos[r]]=[pos[r],pos[empty]];empty=r}
  empty=pos.indexOf(8);
- // make sure not solved at start
- if(pos.every((v,i)=>v===i)){init();return}
- render();
+ if(pos.every((v,i)=>v===i)||isTooEasy())init();else render();
+ setTimeout(()=>document.getElementById('skipBtn').classList.remove('hidden'),25000);
 }
+function isTooEasy(){let ok=pos.filter((v,i)=>v===i).length;return ok>=6}
 function neighbors(i){let r=[];if(i%3>0)r.push(i-1);if(i%3<2)r.push(i+1);if(i>=3)r.push(i-3);if(i<6)r.push(i+3);return r}
 function render(){
  let pz=document.getElementById('pz');pz.innerHTML='';
  pos.forEach((v,i)=>{
   if(v===8)return;
   let d=document.createElement('div');d.className='tile';
-  d.style.left=(i%3)*33.333+'%';d.style.top=Math.floor(i/3)*33.333+'%';
+  d.style.left=(i%3)*33.33+'%';d.style.top=Math.floor(i/3)*33.33+'%';
   d.style.backgroundImage=`url(${photo})`;
   d.style.backgroundPosition=`${(v%3)*50}% ${Math.floor(v/3)*50}%`;
-  d.onclick=()=>{if(neighbors(empty).includes(i))move(i)};
-  let sx=0;
-  d.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
-  d.addEventListener('touchend',e=>{if(Math.abs(e.changedTouches[0].clientX-sx)<15&&neighbors(empty).includes(i))move(i)});
+  d.onclick=()=>{if(neighbors(empty).includes(i)){moves++;move(i)}};
   pz.appendChild(d);
  });
  let ok=pos.filter((v,i)=>v===i).length;
  document.getElementById('bar').style.width=(ok/9*100)+'%';
- document.getElementById('pct').innerText=Math.round(ok/9*100)+'% solved • Slide to complete';
- if(ok===9)setTimeout(win,400);
+ document.getElementById('pct').innerText=Math.round(ok/9*100)+'% • '+moves+' moves';
+ if(ok===9)setTimeout(win,350);
 }
-function move(i){[pos[empty],pos[i]]=[pos[i],pos[empty]];empty=i;if(navigator.vibrate)navigator.vibrate(20);render()}
-function win(){
- document.getElementById('s2').classList.add('hidden');
- document.getElementById('surprise').classList.remove('hidden');
- for(let k=0;k<40;k++)setTimeout(()=>{
-  let h=document.createElement('div');h.className='heart';h.innerText=['💖','💕','💜','❤️','😘'][Math.floor(Math.random()*5)];
-  h.style.left=Math.random()*100+'vw';document.body.appendChild(h);setTimeout(()=>h.remove(),3000);
- },k*70);
+function move(i){[pos[empty],pos[i]]=[pos[i],pos[empty]];empty=i;if(navigator.vibrate)navigator.vibrate(15);render()}
+function doHint(){
+ if(hints<=0){alert('No hints left!');return}
+ hints--;document.getElementById('hintBtn').innerText=`💡 Hint (${hints} left)`;
+ let pz=document.getElementById('pz');pz.innerHTML='';
+ for(let i=0;i<9;i++){if(i===8)continue;let d=document.createElement('div');d.className='tile';d.style.left=(i%3)*33.33+'%';d.style.top=Math.floor(i/3)*33.33+'%';d.style.backgroundImage=`url(${photo})`;d.style.backgroundPosition=`${(i%3)*50}% ${Math.floor(i/3)*50}%`;d.style.border='2px solid #FF2D78';pz.appendChild(d)}
+ setTimeout(render,1500);
 }
-</script>
-</body>
-</html>
+function win(){document.getElementById('s2').classList.add('hidden');document.getElementById('surprise').classList.remove('hidden');for(let k=0;k<40;k++)setTimeout(()=>{let h=document.createElement('div');h.className='heart';h.innerText=['💖','💕','💜'][Math.floor(Math.random()*3)];h.style.left=Math.random()*100+'vw';document.body.appendChild(h);setTimeout(()=>h.remove(),3000)},k*70)}
+</script></body></html>
